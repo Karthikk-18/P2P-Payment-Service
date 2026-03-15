@@ -49,6 +49,11 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public boolean existsById(Long id){
+        return userRepository.existsById(id);
+    }
+
     @Transactional
     public void deleteUser(Long id) {
         if(!userRepository.existsById(id)) {
