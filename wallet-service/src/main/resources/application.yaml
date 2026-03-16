@@ -1,6 +1,9 @@
 server:
   port: 8082
 
+user-service:
+  url: http://localhost:8081
+
 spring:
   profiles:
     active: local
