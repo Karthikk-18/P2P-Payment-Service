@@ -10,7 +10,7 @@
 [Client]
     ↓
 [API Gateway :8080]
-    ├── /api/users/**         →  user-service         :8081
+    ├── /api/users/**         →  user-service          :8081
     ├── /api/wallets/**       →  wallet-service        :8082
     └── /api/transactions/**  →  transaction-service   :8083
                               fraud-detection-service  :8084
