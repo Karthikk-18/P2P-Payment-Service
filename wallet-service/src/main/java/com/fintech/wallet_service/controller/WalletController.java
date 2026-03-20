@@ -1,5 +1,6 @@
 package com.fintech.wallet_service.controller;
 
+import com.fintech.wallet_service.dto.DepositRequestDto;
 import com.fintech.wallet_service.dto.WalletRequestDto;
 import com.fintech.wallet_service.dto.WalletResponseDto;
 import com.fintech.wallet_service.service.WalletService;
@@ -37,9 +38,12 @@ public class WalletController {
     @PostMapping("/deposit/{userId}")
     public ResponseEntity<WalletResponseDto> deposit(
             @PathVariable Long userId,
-            @RequestBody BigDecimal amount
+            @RequestBody DepositRequestDto depositRequestDto
     ) {
-        WalletResponseDto responseDto = walletService.deposit(userId, amount);
+        if(depositRequestDto.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Deposit amount must be greater than zero");
+        }
+        WalletResponseDto responseDto = walletService.deposit(userId, depositRequestDto.getAmount());
         return ResponseEntity.ok().body(responseDto);
     }
 
