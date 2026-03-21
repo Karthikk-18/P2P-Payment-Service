@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepositRequestDto {
+public class AmountRequestDto {
     @NotNull
     @DecimalMin(value = "1.00", message = "Amount must be greater than zero")
     private BigDecimal amount;

@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
+    username: postgres.knawrnuxcssxvmsjeqem
+    password: Karthik@180613

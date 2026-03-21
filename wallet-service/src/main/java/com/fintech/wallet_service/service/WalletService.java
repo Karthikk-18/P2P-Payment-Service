@@ -4,6 +4,7 @@ import com.fintech.wallet_service.client.UserClient;
 import com.fintech.wallet_service.dto.WalletRequestDto;
 import com.fintech.wallet_service.dto.WalletResponseDto;
 import com.fintech.wallet_service.entity.Wallet;
+import com.fintech.wallet_service.exception.InsufficientBalanceException;
 import com.fintech.wallet_service.exception.UserNotFoundException;
 import com.fintech.wallet_service.exception.WalletAlreadyExistsException;
 import com.fintech.wallet_service.exception.WalletNotFoundException;
@@ -52,8 +53,29 @@ public class WalletService {
         }
         Wallet wallet = walletRepository.findByUserId(userId)
                 .orElseThrow(() -> new WalletNotFoundException(userId));
+        if(wallet.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Deposit amount must be greater than zero");
+        }
         wallet.setBalance(wallet.getBalance().add(amount));
         Wallet savedWallet = walletRepository.save(wallet);
         return walletMapper.toDto(savedWallet   );
+    }
+
+    @Transactional
+    public WalletResponseDto deduct(Long userId, BigDecimal amount) {
+        if(amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Deposit amount must be greater than zero");
+        }
+        if(!userClient.existsById(userId)) {
+            throw new UserNotFoundException(userId);
+        }
+        Wallet wallet = walletRepository.findByUserId(userId)
+                .orElseThrow(() -> new WalletNotFoundException(userId));
+        if(wallet.getBalance().compareTo(amount) < 0) {
+            throw new InsufficientBalanceException();
+        }
+        wallet.setBalance(wallet.getBalance().subtract(amount));
+        Wallet savedWallet = walletRepository.save(wallet);
+        return walletMapper.toDto(savedWallet);
     }
 }
