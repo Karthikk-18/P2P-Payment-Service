@@ -41,8 +41,8 @@
 | Service | Port | Status | Responsibility |
 |---|---|---|---|
 | user-service | 8081 | ✅ Done | Registration, profile management |
-| wallet-service | 8082 | 🔄 In Progress | Wallet creation, deposits, balance |
-| transaction-service | 8083 | ⬜ Pending | P2P transfers, history |
+| wallet-service | 8082 | ✅ Done| Wallet creation, deposits, balance |
+| transaction-service | 8083 | 🔄 In Progress | P2P transfers, history |
 | api-gateway | 8080 | ⬜ Pending | Routing, rate limiting |
 | fraud-detection-service | 8084 | ⬜ Pending | Async fraud analysis |
 | notification-service | 8085 | ⬜ Pending | Async notifications |
