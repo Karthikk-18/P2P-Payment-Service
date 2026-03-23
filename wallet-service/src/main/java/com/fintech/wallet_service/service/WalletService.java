@@ -38,9 +38,6 @@ public class WalletService {
 
     @Transactional(readOnly = true)
     public BigDecimal getBalance(Long userId) {
-        if(!userClient.existsById(userId)) {
-            throw new UserNotFoundException(userId);
-        }
         Wallet wallet = walletRepository.findByUserId(userId)
                 .orElseThrow(() -> new WalletNotFoundException(userId));
         return wallet.getBalance();
@@ -48,9 +45,6 @@ public class WalletService {
 
     @Transactional
     public WalletResponseDto deposit(Long userId, BigDecimal amount) {
-        if(!userClient.existsById(userId)) {
-            throw new UserNotFoundException(userId);
-        }
         Wallet wallet = walletRepository.findByUserId(userId)
                 .orElseThrow(() -> new WalletNotFoundException(userId));
         if(wallet.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
@@ -65,9 +59,6 @@ public class WalletService {
     public WalletResponseDto deduct(Long userId, BigDecimal amount) {
         if(amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Deposit amount must be greater than zero");
-        }
-        if(!userClient.existsById(userId)) {
-            throw new UserNotFoundException(userId);
         }
         Wallet wallet = walletRepository.findByUserId(userId)
                 .orElseThrow(() -> new WalletNotFoundException(userId));

@@ -4,4 +4,8 @@ public class TransactionFailedException extends RuntimeException {
     public TransactionFailedException() {
         super("Transaction failed sender has refunded. ");
     }
+
+    public TransactionFailedException(String message) {
+        super(message);
+    }
 }

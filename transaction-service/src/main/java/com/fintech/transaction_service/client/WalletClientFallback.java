@@ -1,5 +1,6 @@
 package com.fintech.transaction_service.client;
 
+import com.fintech.transaction_service.dto.AmountRequestDto;
 import com.fintech.transaction_service.exceptions.ServiceUnavailableException;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +14,12 @@ public class WalletClientFallback implements WalletClient{
     }
 
     @Override
-    public void deduct(Long userId, BigDecimal amount) {
+    public void deduct(Long userId, AmountRequestDto requestDto) {
         throw new ServiceUnavailableException("wallet service is unavailable");
     }
 
     @Override
-    public void deposit(Long userId, BigDecimal amount) {
+    public void deposit(Long userId, AmountRequestDto requestDto) {
         throw new ServiceUnavailableException("wallet service is unavailable");
     }
 }

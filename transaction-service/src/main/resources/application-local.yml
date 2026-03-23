@@ -1,5 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
+    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres?prepareThreshold=0
     username: postgres.knawrnuxcssxvmsjeqem
     password: Karthik@180613
+    hikari:
+      maximum-pool-size: 3
+      data-source-properties:
+        prepareThreshold: 0
