@@ -42,8 +42,8 @@
 |---|---|---|---|
 | user-service | 8081 | ✅ Done | Registration, profile management |
 | wallet-service | 8082 | ✅ Done| Wallet creation, deposits, balance |
-| transaction-service | 8083 | 🔄 In Progress | P2P transfers, history |
-| api-gateway | 8080 | ⬜ Pending | Routing, rate limiting |
+| transaction-service | 8083 | ✅ Done | P2P transfers, history |
+| api-gateway | 8080 | ✅ Done | Routing, rate limiting |
 | fraud-detection-service | 8084 | ⬜ Pending | Async fraud analysis |
 | notification-service | 8085 | ⬜ Pending | Async notifications |
 
@@ -52,7 +52,7 @@
 ## Roadmap
 
 - [x] Phase 1 — REST Microservices + OpenFeign + API Gateway
-- [ ] Phase 1.5 — JWT Security
+- [x] Phase 1.5 — JWT Security
 - [ ] Phase 2 — Kafka + Fraud Detection + Notifications
 - [ ] Phase 3 — Docker + Docker Compose
 - [ ] Phase 4 — Kubernetes Manifests
