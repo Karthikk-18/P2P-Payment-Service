@@ -1,7 +1,7 @@
 # P2P Payment Service
 
  A microservices-based peer-to-peer payment platform built with Java & Spring Boot.
- Designed to learn distributed systems concepts progressively — from REST APIs to Kafka, Docker, Kubernetes, and Strimzi.
+ Designed to learn distributed systems concepts progressively — from REST APIs to Kafka, Docker, Kubernetes.
 
 ---
 
@@ -31,8 +31,6 @@
 | Message Broker | Apache Kafka (Phase 2) |
 | Containerization | Docker (Phase 3) |
 | Orchestration | Kubernetes (Phase 4) |
-| Kafka on K8s | Strimzi (Phase 5) |
-| Observability | Prometheus + Grafana (Phase 6) |
 
 ---
 
@@ -130,9 +128,6 @@ Each service owns its database. No shared tables. No cross-service JPA relations
 **Synchronous vs Asynchronous**
 User validation and balance checks are synchronous — the caller needs an immediate answer. Fraud detection and notifications are asynchronous — they don't block the payment flow. That's why Kafka enters in Phase 2.
 
-**Why Strimzi?**
-Running Kafka manually on Kubernetes is painful. Strimzi manages Kafka as a Kubernetes-native resource using CRDs — `Kafka`, `KafkaTopic`, `KafkaUser`. It's how production teams run Kafka on K8s.
-
 ---
 
 ## 📁 Project Structure
@@ -147,6 +142,9 @@ P2P-Payment-Service/
   │   ├── pom.xml
   │   └── README.md
   ├── transaction-service/
+  │   ├── src/
+  │   ├── pom.xml
+  │   └── README.md
   ├── api-gateway/
   └── README.md
 ```
