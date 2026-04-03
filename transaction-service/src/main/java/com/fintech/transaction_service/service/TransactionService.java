@@ -7,14 +7,17 @@ import com.fintech.transaction_service.dto.TransactionRequestDto;
 import com.fintech.transaction_service.dto.TransactionResponseDto;
 import com.fintech.transaction_service.entity.Transaction;
 import com.fintech.transaction_service.entity.TransactionStatus;
+import com.fintech.transaction_service.event.TransactionCompletedEvent;
 import com.fintech.transaction_service.exceptions.*;
 import com.fintech.transaction_service.mapper.TransactionMapper;
+import com.fintech.transaction_service.producer.TransactionEventProducer;
 import com.fintech.transaction_service.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -26,6 +29,7 @@ public class TransactionService {
     private final TransactionMapper transactionMapper;
     private final UserClient userClient;
     private final WalletClient walletClient;
+    private final TransactionEventProducer kafkaEventProducer;
 
     @Transactional
     public TransactionResponseDto sendMoney(TransactionRequestDto requestDto) {
@@ -53,6 +57,20 @@ public class TransactionService {
             walletClient.deduct(requestDto.getSenderId(), new AmountRequestDto(requestDto.getAmount()));
             walletClient.deposit(requestDto.getReceiverId(), new AmountRequestDto(requestDto.getAmount()));
             savedTransaction.setStatus(TransactionStatus.SUCCESS);
+
+            Transaction completedTransaction = transactionRepository.save(savedTransaction);
+
+            TransactionCompletedEvent event = TransactionCompletedEvent.builder()
+                    .transactionId(completedTransaction.getTransactionId())
+                    .receiverId(completedTransaction.getReceiverId())
+                    .senderId(completedTransaction.getSenderId())
+                    .amount(completedTransaction.getAmount())
+                    .status(completedTransaction.getStatus())
+                    .timestamp(LocalDateTime.now())
+                    .build();
+            kafkaEventProducer.publishTransactionEvent(event);
+
+            return transactionMapper.toDto(completedTransaction);
         } catch (Exception ex) {
             try {
                 refundSender(requestDto.getSenderId(), requestDto.getAmount());
@@ -67,7 +85,6 @@ public class TransactionService {
             transactionRepository.save(savedTransaction);
             throw new TransactionFailedException();
         }
-        return transactionMapper.toDto(transactionRepository.save(savedTransaction));
     }
 
     private void refundSender(Long senderId, BigDecimal amount) {
