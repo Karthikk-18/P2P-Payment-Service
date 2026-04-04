@@ -28,7 +28,7 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final TransactionMapper transactionMapper;
     private final UserClient userClient;
-    private final WalletClient walletClient;
+    private final WalletClient walletClient;    
     private final TransactionEventProducer kafkaEventProducer;
 
     @Transactional
