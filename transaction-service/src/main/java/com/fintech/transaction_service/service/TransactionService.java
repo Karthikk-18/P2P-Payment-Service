@@ -60,6 +60,9 @@ public class TransactionService {
 
             Transaction completedTransaction = transactionRepository.save(savedTransaction);
 
+            String senderEmail = userClient.getEmailById(requestDto.getSenderId());
+            String receiverEmail = userClient.getEmailById(requestDto.getReceiverId());
+
             TransactionCompletedEvent event = TransactionCompletedEvent.builder()
                     .transactionId(completedTransaction.getTransactionId())
                     .receiverId(completedTransaction.getReceiverId())
@@ -67,6 +70,8 @@ public class TransactionService {
                     .amount(completedTransaction.getAmount())
                     .status(completedTransaction.getStatus())
                     .timestamp(LocalDateTime.now())
+                    .senderEmail(senderEmail)
+                    .receiverEmail(receiverEmail)
                     .build();
             kafkaEventProducer.publishTransactionEvent(event);
 

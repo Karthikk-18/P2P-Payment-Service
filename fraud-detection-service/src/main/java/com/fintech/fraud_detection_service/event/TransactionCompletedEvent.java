@@ -1,7 +1,6 @@
 package com.fintech.fraud_detection_service.event;
 
 import lombok.*;
-import org.springframework.transaction.TransactionStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

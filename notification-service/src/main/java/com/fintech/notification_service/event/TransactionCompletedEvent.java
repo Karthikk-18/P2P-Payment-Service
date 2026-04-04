@@ -1,6 +1,5 @@
-package com.fintech.transaction_service.event;
+package com.fintech.notification_service.event;
 
-import com.fintech.transaction_service.entity.TransactionStatus;
 import lombok.*;
 
 import java.math.BigDecimal;
