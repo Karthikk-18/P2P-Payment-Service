@@ -12,6 +12,6 @@ public class TransactionEventProducer {
     private final KafkaTemplate<String, TransactionCompletedEvent> kafkaTemplate;
 
     public void publishTransactionEvent(com.fintech.transaction_service.event.TransactionCompletedEvent event) {
-        kafkaTemplate.send("transaction-complete",event);
+        kafkaTemplate.send("transaction-completed",event);
     }
 }
