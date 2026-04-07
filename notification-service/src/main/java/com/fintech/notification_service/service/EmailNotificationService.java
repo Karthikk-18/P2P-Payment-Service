@@ -14,6 +14,10 @@ public class EmailNotificationService {
     private final JavaMailSender mailSender;
 
     public void sendTransactionalEmail(String to, String subject, String body) {
+        if (to == null || to.isBlank() || !to.contains("@")) {
+            log.warn("Skipping email — invalid address: {}", to);
+            return;
+        }
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(to);

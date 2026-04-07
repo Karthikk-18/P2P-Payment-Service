@@ -18,7 +18,7 @@ public class TransactionEventConsumer {
     @KafkaListener(topics = "transaction-completed",
             groupId = "notification-group")
     public void consume(TransactionCompletedEvent event) {
-        log.info("Received transaction event: id{}",event.getTransactionId());
+        log.info("Received transaction event: id={}",event.getTransactionId());
 
         if(event.getStatus() == TransactionStatus.SUCCESS) {
             // notify sender
