@@ -1,8 +1,6 @@
 package com.fintech.transaction_service.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.math.BigDecimal;

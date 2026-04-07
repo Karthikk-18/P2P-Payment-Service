@@ -45,6 +45,12 @@ public class UserController {
         return ResponseEntity.ok(userService.existsById(id));
     }
 
+    @GetMapping("/{id}/email")
+    public ResponseEntity<String> getEmailById(@PathVariable Long id) {
+         String email = userService.getEmailId(id);
+         return ResponseEntity.ok(email);
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
        userService.deleteUser(userId);

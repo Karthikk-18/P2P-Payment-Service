@@ -54,6 +54,12 @@ public class UserService {
         return userRepository.existsById(id);
     }
 
+    @Transactional(readOnly = true)
+    public String getEmailId(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id)).getEmail();
+    }
+
     @Transactional
     public void deleteUser(Long id) {
         if(!userRepository.existsById(id)) {
