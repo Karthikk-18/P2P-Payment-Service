@@ -42,8 +42,8 @@
 | wallet-service | 8082 | ✅ Done| Wallet creation, deposits, balance |
 | transaction-service | 8083 | ✅ Done | P2P transfers, history |
 | api-gateway | 8080 | ✅ Done | Routing, rate limiting |
-| fraud-detection-service | 8084 | ⬜ Pending | Async fraud analysis |
-| notification-service | 8085 | ⬜ Pending | Async notifications |
+| fraud-detection-service | 8084 | ✅ Done | Async fraud analysis |
+| notification-service | 8085 | ✅ Done | Async notifications |
 
 ---
 
