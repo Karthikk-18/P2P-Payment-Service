@@ -1,7 +1,7 @@
 # P2P Payment Service
 
  A microservices-based peer-to-peer payment platform built with Java & Spring Boot.
- Designed to learn distributed systems concepts progressively — from REST APIs to Kafka, Docker, Kubernetes.
+ Designed to learn distributed systems concepts progressively — from REST APIs to Kafka, Docker, and Kubernetes.
 
 ---
 
@@ -9,12 +9,12 @@
 ```
 [Client]
     ↓
-[API Gateway :8080]
+[API Gateway:8080]
     ├── /api/users/**         →  user-service          :8081
     ├── /api/wallets/**       →  wallet-service        :8082
     └── /api/transactions/**  →  transaction-service   :8083
                               fraud-detection-service  :8084
-                              notification-service     :8085
+                              notification-service    :8085
 ```
 
 ---
@@ -28,34 +28,22 @@
 | Service Communication | OpenFeign |
 | API Gateway | Spring Cloud Gateway |
 | Database | PostgreSQL (Supabase) |
-| Message Broker | Apache Kafka (Phase 2) |
-| Containerization | Docker (Phase 3) |
-| Orchestration | Kubernetes (Phase 4) |
+| Message Broker | Apache Kafka |
+| Containerization | Docker |
+| Orchestration | Kubernetes |
 
 ---
 
 ## Services
 
-| Service | Port | Status | Responsibility |
-|---|---|---|---|
-| user-service | 8081 | ✅ Done | Registration, profile management |
-| wallet-service | 8082 | ✅ Done| Wallet creation, deposits, balance |
-| transaction-service | 8083 | ✅ Done | P2P transfers, history |
-| api-gateway | 8080 | ✅ Done | Routing, rate limiting |
-| fraud-detection-service | 8084 | ✅ Done | Async fraud analysis |
-| notification-service | 8085 | ✅ Done | Async notifications |
-
----
-
-## Roadmap
-
-- [x] Phase 1 — REST Microservices + OpenFeign + API Gateway
-- [x] Phase 1.5 — JWT Security
-- [ ] Phase 2 — Kafka + Fraud Detection + Notifications
-- [ ] Phase 3 — Docker + Docker Compose
-- [ ] Phase 4 — Kubernetes Manifests
-- [ ] Phase 5 — Strimzi Kafka Operator
-- [ ] Phase 6 — Prometheus + Grafana
+| Service | Port | Responsibility |
+|---|---|---|
+| user-service | 8081 | Registration, profile management |
+| wallet-service | 8082 | Wallet creation, deposits, balance |
+| transaction-service | 8083 | P2P transfers, history |
+| api-gateway | 8080 | Routing, rate limiting |
+| fraud-detection-service | 8084 | Async fraud analysis |
+| notification-service | 8085 | Async notifications |
 
 ---
 
@@ -123,7 +111,7 @@ GET     /api/transactions/{id}      →  Get transaction
 ## Key Design Decisions
 
 **Database per service**
-Each service owns its database. No shared tables. No cross-service JPA relationships. Services communicate via REST (Phase 1) and Kafka (Phase 2).
+Each service owns its database. No shared tables. No cross-service JPA relationships. Services communicate via REST and Kafka.
 
 **Synchronous vs Asynchronous**
 User validation and balance checks are synchronous — the caller needs an immediate answer. Fraud detection and notifications are asynchronous — they don't block the payment flow. That's why Kafka enters in Phase 2.
@@ -148,12 +136,6 @@ P2P-Payment-Service/
   ├── api-gateway/
   └── README.md
 ```
-
----
-
-## 👤 Author
-
-**Karthik** — [GitHub](https://github.com/Karthikk-18)
 
 ---
 
